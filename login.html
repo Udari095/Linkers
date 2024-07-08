@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Colombo Area Map with Town Boundaries</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+    <style>
+      #map {
+        height: 100%;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+      // Initialize the map
+      var map = L.map("map").setView([6.9271, 79.8612], 12);
+
+      // Add OSM tile layer to the map
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      // Example GeoJSON data (replace this with actual town boundaries data)
+      var geojsonFeature = {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            geometry: {
+              type: "Polygon",
+              coordinates: [
+                [
+                  [79.8612, 6.9271],
+                  [79.8712, 6.9271],
+                  [79.8712, 6.9371],
+                  [79.8612, 6.9371],
+                  [79.8612, 6.9271],
+                ],
+              ],
+            },
+            properties: {
+              name: "Town 1",
+            },
+          },
+          {
+            type: "Feature",
+            geometry: {
+              type: "Polygon",
+              coordinates: [
+                [
+                  [79.8512, 6.9171],
+                  [79.8612, 6.9171],
+                  [79.8612, 6.9271],
+                  [79.8512, 6.9271],
+                  [79.8512, 6.9171],
+                ],
+              ],
+            },
+            properties: {
+              name: "Town 2",
+            },
+          },
+        ],
+      };
+
+      // Add GeoJSON data to the map
+      L.geoJSON(geojsonFeature, {
+        style: function (feature) {
+          return {
+            color: "black",
+            weight: 2,
+            fillColor: "green",
+            fillOpacity: 0.5,
+          };
+        },
+      }).addTo(map);
+    </script>
+  </body>
+</html>
